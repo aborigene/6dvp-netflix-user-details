@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ListEntryRepository extends CrudRepository<ListEntry, String>{
-    List<ListEntry> findTopByUserIdAndEntryTypeOrderByDateAdded(String userId, String EntryType);
-    List<ListEntry> findTop5ByUserIdAndEntryTypeOrderByDateAdded(String userId, String EntryType);
-    List<ListEntry> findTop10ByUserIdAndEntryTypeOrderByDateAdded(String userId, String EntryType);
-    List<ListEntry> findTop20ByUserIdAndEntryTypeOrderByDateAdded(String userId, String EntryType);
+    List<ListEntry> findTopByUseridAndEntrytypeOrderByDateadded(String userId, String EntryType);
+    List<ListEntry> findTop5ByUseridAndEntrytypeOrderByDateadded(String userId, String EntryType);
+    List<ListEntry> findTop10ByUseridAndEntrytypeOrderByDateadded(String userId, String EntryType);
+    List<ListEntry> findTop20ByUseridAndEntrytypeOrderByDateadded(String userId, String EntryType);
 
-    Optional<ListEntry> findByImdbIddAndUseridAndEntrytype(String imdbId, String userId, String entryType);
+    Optional<ListEntry> findByImdbidAndUseridAndEntrytype(String imdbId, String userId, String entryType);
 }

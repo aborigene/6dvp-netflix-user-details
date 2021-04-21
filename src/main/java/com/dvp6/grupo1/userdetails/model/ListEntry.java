@@ -13,23 +13,23 @@ import org.aspectj.weaver.EnumAnnotationValue;
 @Entity
 public class ListEntry {
     @Id
-    private String imdbId;
-    private String userId;
-    private Date dateAdded;
-    private String entryType;
+    private String imdbid;
+    private String userid;
+    private Date dateadded;
+    private String entrytype;
 
     protected ListEntry() {}
 
-    public ListEntry(String imdbId, String userId, Date dateAdded, String entryType){
-        this.imdbId=imdbId;
-        this.userId=userId;
-        this.dateAdded=dateAdded;
-        this.entryType=entryType.toString();
+    public ListEntry(String imdbid, String userid, Date dateadded, String entrytype){
+        this.imdbid=imdbid;
+        this.userid=userid;
+        this.dateadded=dateadded;
+        this.entrytype=entrytype.toString();
     }
 
     @Override
     public String toString(){
-        return String.format("ListItem[imdbid='%s', userid='%s', dateAdded='%tY-%tm-%td', entryType='%s']", imdbId, userId, dateAdded, entryType);
+        return String.format("ListItem[imdbid='%s', userid='%s', dateAdded='%tY-%tm-%td', entryType='%s']", imdbid, userid, dateadded, entrytype);
     }
 
     public String toJson(){
@@ -37,18 +37,18 @@ public class ListEntry {
     }
 
     public String getImdbId(){
-        return this.imdbId;
+        return this.imdbid;
     }
     
     public String getUserId(){
-        return this.userId;
+        return this.userid;
     }
 
     public Date getDateAdded(){
-        return this.dateAdded;
+        return this.dateadded;
     }
 
     public String getEntryType(){
-        return this.entryType;
+        return this.entrytype;
     }
 }
