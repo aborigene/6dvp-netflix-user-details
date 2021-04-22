@@ -7,8 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.google.gson.*;
-
-import org.aspectj.weaver.EnumAnnotationValue;
+import org.apache.commons.validator.routines.EmailValidator;
 
 @Entity
 public class ListEntry {
@@ -24,7 +23,7 @@ public class ListEntry {
         this.imdbid=imdbid;
         this.userid=userid;
         this.dateadded=dateadded;
-        this.entrytype=entrytype.toString();
+        this.entrytype=entrytype;
     }
 
     @Override

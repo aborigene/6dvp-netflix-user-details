@@ -7,11 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.google.gson.*;
+import org.apache.commons.validator.routines.EmailValidator;
 
 @Entity
 public class User {
     @Id
-    private long id;
+    private String id;
     private String name;
     private String surname;
     private String gender;
@@ -20,13 +21,19 @@ public class User {
 
     protected User() {}
 
-    public User(String name, String surname, String gender, String birth_date, long id, String country){
+    public User(String name, String surname, String gender, String birth_date, String id, String country) throws Exception{
         this.name=name;
         this.surname=surname;
         this.gender=gender;
         this.birth_date=birth_date;
-        this.id=id;
+        this.id=checkEmail(id);
         this.country=country;
+    }
+
+    private String checkEmail(String userid) throws Exception{
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        if (emailValidator.isValid(userid)) return userid;
+        else throw new Exception("User sent an invalid email, transaction cannot continue.");
     }
 
     @Override
@@ -50,7 +57,7 @@ public class User {
         return this.gender;
     }
 
-    public long getUserId(){
+    public String getUserId(){
         return this.id;
     }
 

@@ -12,8 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Date;
 import java.util.*;
+
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import com.dvp6.grupo1.userdetails.model.ListEntry;
 import com.dvp6.grupo1.userdetails.model.User;
@@ -85,6 +101,83 @@ public class UserDetailsController {
             }
             else{
                 return new ResponseEntity<String>(new Gson().toJson(user), HttpStatus.NOT_MODIFIED);
+            }
+        }
+        catch(NullPointerException ex){
+            return ReturnHttpError("There were imvalid values on the json provided, please review that and try again.", HttpStatus.BAD_REQUEST);
+        }
+        catch(IllegalArgumentException ex){
+            return ReturnHttpError("There was problem while saving to the DB. Please make sure that all the fields are valid, specially userId.", HttpStatus.BAD_REQUEST);
+        }
+        catch(Exception ex){
+            return ReturnHttpError("User does not exist.", HttpStatus.NOT_FOUND);
+        }    
+        
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/api/user_details", consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<String> userDetailsPost(@PathVariable String userId, @RequestBody String userData) {
+        Optional<User> optionalUser;
+        JsonObject jsonObject = new JsonParser().parse(userData).getAsJsonObject();
+        try{
+            boolean validUser = false;
+            if (!jsonObject.get("name").getAsString().equals("")) {
+                validUser = true;
+            }
+            if (!jsonObject.get("surname").getAsString().equals("")){
+                validUser = true;
+            } 
+            if (!jsonObject.get("gender").getAsString().equals("")){
+                validUser = true;
+            } 
+            if (!jsonObject.get("birth_date").getAsString().equals("")){
+                validUser = true;
+            } 
+            if (!jsonObject.get("country").getAsString().equals("")){
+                validUser = true;
+            }
+            if (!jsonObject.get("id").getAsString().equals("")){
+                validUser = true;
+            }
+            if (!jsonObject.get("password").getAsString().equals("")){
+                validUser = true;
+            } 
+
+            if (validUser == true) {
+                try{
+                    CloseableHttpClient client = HttpClients.createDefault();
+                    String SERVICE_NAME="some service";
+                    HttpPost httpPost = new HttpPost("http://"+SERVICE_NAME+"/addUser");
+                    String json = "{\"username\": \""+jsonObject.get("name").getAsString()+"\",\"password\": \""+jsonObject.get("password").getAsString()+"\",\"role\": \"ROLE_USER\",\"enabled\": true}";
+                    StringEntity entity = new StringEntity(json);
+                    httpPost.setEntity(entity);
+                    httpPost.setHeader("Accept", "application/json");
+                    httpPost.setHeader("Content-type", "application/json");
+                    CloseableHttpResponse response = client.execute(httpPost);
+                    ResponseEntity<String> authResponse;
+                    if (response.getStatusLine().getStatusCode()==200){
+                        User newUser = new User(jsonObject.get("name").getAsString(), 
+                                                jsonObject.get("surname").getAsString(), 
+                                                jsonObject.get("gender").getAsString(), 
+                                                jsonObject.get("birth_date").getAsString(), 
+                                                jsonObject.get("id").getAsString(), 
+                                                jsonObject.get("country").getAsString());
+                        newUser = userRepository.save(newUser);
+                        authResponse = new ResponseEntity<String>("User " + newUser.getUserId() + " successfully created.", HttpStatus.OK);
+                    }
+                    else{
+                        authResponse = ReturnHttpError("Failed to set user password, user creation aborted.", HttpStatus.NOT_MODIFIED);
+                    }
+                    client.close();
+                    return authResponse;
+                }
+                catch(Exception e){
+                    return new ResponseEntity<String>("Invalid user email provided.", HttpStatus.UNPROCESSABLE_ENTITY);
+                }
+            }
+            else{
+                return new ResponseEntity<String>("There was an error creating the user, please check the values provided and try again.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
         catch(NullPointerException ex){
