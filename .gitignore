@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+data2
+data
+userdb.mv.db
+.gitignore

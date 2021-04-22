@@ -115,7 +115,7 @@ public class UserDetailsController {
         
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/api/user_details", consumes = "application/json", produces = "application/json")
+    /*@RequestMapping(method = RequestMethod.POST, value = "/api/user_details", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> userDetailsPost(@PathVariable String userId, @RequestBody String userData) {
         Optional<User> optionalUser;
@@ -147,7 +147,9 @@ public class UserDetailsController {
             if (validUser == true) {
                 try{
                     CloseableHttpClient client = HttpClients.createDefault();
-                    String SERVICE_NAME="some service";
+                    String auth_port=System.getenv("DVP6_NETFLIX_AUTH_SERVICE_PORT");
+                    String auth_host=System.getenv("DVP6_NETFLIX_AUTH_PORT_"+auth_port+"_TCP_ADDR");
+                    String SERVICE_NAME=auth_host+":"+auth_port;
                     HttpPost httpPost = new HttpPost("http://"+SERVICE_NAME+"/addUser");
                     String json = "{\"username\": \""+jsonObject.get("name").getAsString()+"\",\"password\": \""+jsonObject.get("password").getAsString()+"\",\"role\": \"ROLE_USER\",\"enabled\": true}";
                     StringEntity entity = new StringEntity(json);
@@ -190,7 +192,7 @@ public class UserDetailsController {
             return ReturnHttpError("User does not exist.", HttpStatus.NOT_FOUND);
         }    
         
-    }
+    }*/
 
     private ResponseEntity<String> ReturnHttpError(String message, HttpStatus returnStatus){
         Map<String, String> responseMessage = new HashMap<String,String>();
