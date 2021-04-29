@@ -17,13 +17,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class UserDetailsSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*
-      Método responsável filtar as permissões para as rotas com base no token jwt.
-    */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests().anyRequest().permitAll();
-    }
+  /*
+   * Método responsável filtar as permissões para as rotas com base no token jwt.
+   */
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable();
+    http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class).authorizeRequests()
+        .anyRequest().permitAll();
+  }
 }
