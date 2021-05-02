@@ -10,7 +10,7 @@
 	<groupId>com.dvp6.grupo1</groupId>
 	<artifactId>user-details</artifactId>
 	<version>1.0.0</version>
-	<name>user-details</name>
+	<name>auth</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -77,7 +77,14 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

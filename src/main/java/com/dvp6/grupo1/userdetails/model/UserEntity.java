@@ -34,22 +34,22 @@ public class UserEntity {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "birth_date")
-    private String birth_date;
+    @Column(name = "birthdate")
+    private String birthdate;
 
     @Column(name = "country")
     private String country;
 
-    protected UserEntity() {
+    public UserEntity() {
     }
 
-    public UserEntity(String username, String name, String surname, String gender, String birth_date, String country)
+    public UserEntity(String username, String name, String surname, String gender, String birthdate, String country)
             throws Exception {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.gender = gender;
-        this.birth_date = birth_date;
+        this.birthdate = birthdate;
         this.country = country;
     }
 
@@ -86,11 +86,11 @@ public class UserEntity {
     }
 
     public String getBirthDate() {
-        return this.birth_date;
+        return this.birthdate;
     }
 
-    public void setBirthDate(String birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getCountry() {

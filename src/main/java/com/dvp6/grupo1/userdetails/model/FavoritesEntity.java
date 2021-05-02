@@ -43,6 +43,14 @@ public class FavoritesEntity {
         this.dateadded = dateadded;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return this.username;
     }
