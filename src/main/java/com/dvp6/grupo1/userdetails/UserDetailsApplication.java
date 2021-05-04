@@ -19,11 +19,17 @@ public class UserDetailsApplication {
 		SpringApplication.run(UserDetailsApplication.class, args);
 	}
 
+	/*
+	 * Inicializa o entity junto com o microserviço.
+	 */
 	@Bean
 	public FavoritesEntity favoritesEntity() {
 		return new FavoritesEntity();
 	}
 
+	/*
+	 * Inicializa o entity junto com o microserviço.
+	 */
 	@Bean
 	public UserEntity userEntity() {
 		return new UserEntity();

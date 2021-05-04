@@ -40,6 +40,9 @@ public class UserEntity {
     @Column(name = "country")
     private String country;
 
+    /*
+     * Método construtor da classe.
+     */
     public UserEntity() {
     }
 
@@ -53,6 +56,9 @@ public class UserEntity {
         this.country = country;
     }
 
+    /*
+     * Métodos Getters e Setters.
+     */
     public String getUsername() {
         return this.username;
     }
@@ -80,7 +86,7 @@ public class UserEntity {
     public String getGender() {
         return this.gender;
     }
-    
+
     public void setGender(String gender) {
         this.gender = gender;
     }

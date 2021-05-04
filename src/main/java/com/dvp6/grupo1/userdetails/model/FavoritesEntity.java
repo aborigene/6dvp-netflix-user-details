@@ -43,6 +43,9 @@ public class FavoritesEntity {
         this.dateadded = dateadded;
     }
 
+    /*
+     * Métodos Getters e Setters.
+     */
     public long getId() {
         return this.id;
     }

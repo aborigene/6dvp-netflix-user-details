@@ -6,13 +6,19 @@ public class OpenTicket {
     private String description;
     private String status;
 
-    public OpenTicket(String username, String subject, String description, String status){
+    /*
+     * Método construtor da classe.
+     */
+    public OpenTicket(String username, String subject, String description, String status) {
         this.username = username;
         this.subject = subject;
         this.description = description;
         this.status = status;
     }
 
+    /*
+     * Métodos Getters e Setters.
+     */
     public String getUsername() {
         return this.username;
     }
@@ -20,6 +26,7 @@ public class OpenTicket {
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getSubject() {
         return this.subject;
     }
